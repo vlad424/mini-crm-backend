@@ -16,7 +16,6 @@
     <td>string</td>
     <td>string</td>
     <td>string</td>
-    <td>string</td>
   </tr>
 </table>
 
