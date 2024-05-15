@@ -25,8 +25,9 @@ model user {
 }
 
 model catalog {
-  id   Int @id @default(autoincrement())
-  name Int
+  id       Int       @id @default(autoincrement())
+  name     Int
+  products product[]
 }
 
 model product {
@@ -37,6 +38,8 @@ model product {
   priceMany     Int
   orderStatus   orderStatus? @relation(fields: [orderStatusId], references: [id])
   orderStatusId Int?
+  catalog       catalog?     @relation(fields: [catalogId], references: [id])
+  catalogId     Int?
 }
 
 model orderStatus {
