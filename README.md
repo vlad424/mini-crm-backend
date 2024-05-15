@@ -8,7 +8,7 @@
     <th>login</th>
     <th>firstName</th>
     <th>lastName</th>
-    <th>role</th>
+    <th>counterAgents</th>
   </tr>
   <tr>
     <td>int</td>
@@ -16,7 +16,27 @@
     <td>string</td>
     <td>string</td>
     <td>string</td>
+    <td>counterAgent[] (type)</td>
+  </tr>
+</table>
+
+<p>user table</p>
+<table>
+  <tr>
+    <th>id</th>
+    <th>name</th>
+    <th>country</th>
+    <th>INN</th>
+    <th>KPP</th>
+    <th>OGRN</th>
+  </tr>
+  <tr>
+    <td>int</td>
     <td>string</td>
+    <td>string</td>
+    <td>Int</td>
+    <td>Int</td>
+    <td>Int</td>
   </tr>
 </table>
 
@@ -57,11 +77,13 @@
     <th>orderProducts</th>
     <th>subtotal</th>
     <th>counteragent</th>
+    <th>admin</th>
   </tr>
   <tr>
     <td>int</td>
-    <td>product[]</td>
-    <td>int</td>
-    <td>user</td>
+    <td>product[] (type)</td>
+    <td>Int</td>
+    <td>counterAgent (type)</td>
+    <td>admin (type)</td>
   </tr>
 </table>

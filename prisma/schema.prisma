@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
+model admin {
   id    Int    @id @default(autoincrement())
   login String
 
@@ -21,6 +21,21 @@ model user {
   lastName  String
 
   role        String
+  orderStatus orderStatus[]
+  uids        counterAgent[]
+}
+
+model counterAgent {
+  id      Int    @id @default(autoincrement())
+  name    String
+
+  country String
+  INN     Int
+  KPP     Int
+  OGRN    Int
+
+  admin       admin?        @relation(fields: [adminId], references: [id])
+  adminId     Int?
   orderStatus orderStatus[]
 }
 
@@ -43,9 +58,11 @@ model product {
 }
 
 model orderStatus {
-  id             Int       @id @default(autoincrement())
+  id             Int          @id @default(autoincrement())
   orderProducts  product[]
   subtotal       Int
-  counteragent   user      @relation(fields: [counteragentId], references: [id])
-  counteragentId Int
+  provider       admin        @relation(fields: [adminId], references: [id])
+  counterAgent   counterAgent @relation(fields: [counterAgentId], references: [id])
+  adminId        Int
+  counterAgentId Int
 }
