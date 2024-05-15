@@ -14,8 +14,7 @@
     <td>int</td>
     <td>string</td>
     <td>string</td>
-    <td>string</td>
-    <td>string</td>
+    <td>string</td>\
     <td>counterAgent[] (type)</td>
   </tr>
 </table>
