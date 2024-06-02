@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadGatewayException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CredentialsDto } from './auth.dto';
 
@@ -7,20 +7,32 @@ export class AuthService {
   constructor(private prisma : PrismaService) {}
 
   async login(credentials: CredentialsDto) {
-    const user = await this.prisma.admin.findUnique({
-      where: {
-        login: credentials.login
-      },
-      select: {
-        lastName: true,
-        firstName: true,
-        login: true,
-        id: true
-      }
-    })
+    if(credentials.isCa === true) {
+      const counterAgent = await this.prisma.counterAgent.findFirst({
+        where: {INN: credentials.login}
+      })
+      if(!counterAgent) throw new BadGatewayException()
 
-    if(!user) throw new NotFoundException('user not found')
-
-    return user
+      return counterAgent
+    }
+    else {
+      const admin = await this.prisma.admin.findUnique({
+        where: {
+          login: credentials.login
+        },
+        select: {
+          lastName: true,
+          firstName: true,
+          login: true,
+          role: true,
+          id: true,
+          uids: true
+        }
+      })
+  
+      if(!admin) throw new BadGatewayException()
+  
+      return admin
+    }
   }
 }

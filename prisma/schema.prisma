@@ -20,9 +20,10 @@ model admin {
   firstName String
   lastName  String
 
-  password String
+  password    String
   orderStatus orderStatus[]
   uids        Int[]
+  role        String
 }
 
 model counterAgent {
@@ -30,16 +31,19 @@ model counterAgent {
   name String
 
   country String
-  INN     Int
-  KPP     Int
-  OGRN    Int
+  INN     String
+  KPP     String
+  OGRN    String
 
+  password    String
+  adminId     Int
   orderStatus orderStatus[]
+  role        String
 }
 
 model catalog {
-  id       Int       @id @default(autoincrement())
-  name     String
+  id   Int    @id @default(autoincrement())
+  name String
 
   adminId  Int
   products product[]
@@ -49,18 +53,33 @@ model product {
   id          Int      @id @default(autoincrement())
   name        String
   description String
-  priceOne    Int
-  priceMany   Int
+  priceOne    String
+  priceMany   String
+  count       Int
   catalog     catalog? @relation(fields: [catalogId], references: [id])
   catalogId   Int?
 }
 
 model orderStatus {
-  id             Int          @id @default(autoincrement())
-  subtotal       Int
-  productId      Int[]
-  provider       admin        @relation(fields: [adminId], references: [id])
-  counterAgent   counterAgent @relation(fields: [counterAgentId], references: [id])
-  adminId        Int
+  id                Int          @id @default(autoincrement())
+  subtotal          Int
+  date              String
+  nameCard          String
+  numberCard        String
+  dateCard          String
+  cvvCard           String
+  productIdAndCount Int[]
+  provider          admin        @relation(fields: [adminId], references: [id])
+  counterAgent      counterAgent @relation(fields: [counterAgentId], references: [id])
+  adminId           Int
+  counterAgentId    Int
+  status String
+}
+model statistic {
+  id Int      @id @default(autoincrement())
+  expenses String
+  incomes String
+  adminId Int
+  products Int[]
   counterAgentId Int
 }

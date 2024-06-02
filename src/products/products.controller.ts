@@ -1,6 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { GetCatalogsType } from './products.dto';
+import { AddCatalogAction, GetCatalogsType, AddProductAction, product } from './products.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -9,5 +9,14 @@ export class ProductsController {
   @Get(':id')
   async getCatalogs(@Param() adminId: GetCatalogsType) {
     return this.productsService.getCatalogs(adminId)
+  }
+  @Post(':id')
+  async addSomething(@Body() req : AddCatalogAction | AddProductAction ) {
+    if(req.action === 'add_category') return this.productsService.addCategory(req.adminId, req.data)
+    if(req.action === 'add_product')  return this.productsService.addProduct(req.adminId, req.data)
+  }
+  @Delete(':id')
+  async deleteProduct(@Body() product: product) {
+    return this.productsService.deleteCategory(product)
   }
 }

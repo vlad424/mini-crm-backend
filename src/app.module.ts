@@ -3,9 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
+import { CounteragentModule } from './counteragent/counteragent.module';
+import { CounteragentQueModule } from './counteragent-que/counteragent-que.module';
+import { StatisticModule } from './statistic/statistic.module';
 
 @Module({
-  imports: [AuthModule, ProductsModule],
+  imports: [AuthModule, ProductsModule, CounteragentModule, CounteragentQueModule, StatisticModule],
   controllers: [AppController],
   providers: [AppService],
 })
