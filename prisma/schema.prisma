@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgre:6y*bwN*6baKVb0f(7)<wB18i@79.174.88.131:18008/database1?schema=public" //minidb server
 }
 
 model admin {
@@ -82,4 +82,5 @@ model statistic {
   adminId Int
   products Int[]
   counterAgentId Int
+  date String
 }

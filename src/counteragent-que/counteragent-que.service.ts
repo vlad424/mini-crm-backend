@@ -68,7 +68,8 @@ export class CounteragentQueService {
         incomes: subtotal.toString(),
         expenses: (subtotal * 0.5).toString(),
         products: products,
-        counterAgentId: data.agentId
+        counterAgentId: data.agentId,
+        date: new Date().toISOString().slice(0, 10),
       }
     })
 
