@@ -9,11 +9,18 @@ export class AuthService {
   async login(credentials: CredentialsDto) {
     if(credentials.isCa === true) {
       const counterAgent = await this.prisma.counterAgent.findFirst({
-        where: {INN: credentials.login}
+        where: {INN: credentials.login},
+        include: {
+          role: true
+        }
       })
       if(!counterAgent) throw new BadGatewayException()
 
-      return counterAgent
+      return {
+        ...counterAgent,
+        role: counterAgent.role.name_role
+        
+      }
     }
     else {
       const admin = await this.prisma.admin.findUnique({
@@ -32,7 +39,14 @@ export class AuthService {
   
       if(!admin) throw new BadGatewayException()
   
-      return admin
+      return {
+        lastName: admin.lastName,
+        firstName: admin.firstName,
+        login: admin.login,
+        role: admin.role.name_role,
+        id: admin.id,
+        uids: admin.uids
+      }
     }
   }
 }

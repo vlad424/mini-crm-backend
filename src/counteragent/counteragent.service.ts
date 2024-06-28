@@ -22,7 +22,7 @@ export class CounteragentService {
         KPP: counterAgentData.KPP,
         OGRN: counterAgentData.OGRN,
         adminId: counterAgentData.adminId,
-        role: counterAgentData.role,
+        roleId: 1,
         password: counterAgentData.password
       }
     })

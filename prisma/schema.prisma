@@ -3,14 +3,14 @@
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgre:6y*bwN*6baKVb0f(7)<wB18i@79.174.88.131:18008/database1?schema=public" //minidb server
+  url = "postgresql://postgres:090205)))@localhost:5432/postgres?schema=public"
+  //url      = "postgresql://postgre:6y*bwN*6baKVb0f(7)<wB18i@79.174.88.131:18008/database1?schema=public" //minidb server
 }
 
 model admin {
@@ -20,10 +20,10 @@ model admin {
   firstName String
   lastName  String
 
-  password    String
   orderStatus orderStatus[]
   uids        Int[]
-  role        String
+  role        Role          @relation(fields: [roleId], references: [id])
+  roleId      Int
 }
 
 model counterAgent {
@@ -38,7 +38,8 @@ model counterAgent {
   password    String
   adminId     Int
   orderStatus orderStatus[]
-  role        String
+  role        Role          @relation(fields: [roleId], references: [id])
+  roleId      Int
 }
 
 model catalog {
@@ -73,14 +74,22 @@ model orderStatus {
   counterAgent      counterAgent @relation(fields: [counterAgentId], references: [id])
   adminId           Int
   counterAgentId    Int
-  status String
+  status            String
 }
+
 model statistic {
-  id Int      @id @default(autoincrement())
-  expenses String
-  incomes String
-  adminId Int
-  products Int[]
+  id             Int    @id @default(autoincrement())
+  expenses       String
+  incomes        String
+  adminId        Int
+  products       Int[]
   counterAgentId Int
-  date String
+  date           String
+}
+
+model Role {
+  id           Int            @id @default(autoincrement())
+  name_role    String
+  admin        admin[]
+  counterAgent counterAgent[]
 }
