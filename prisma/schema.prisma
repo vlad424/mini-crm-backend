@@ -21,6 +21,7 @@ model admin {
   lastName  String
 
   orderStatus orderStatus[]
+  password    String
   uids        Int[]
   role        Role          @relation(fields: [roleId], references: [id])
   roleId      Int
