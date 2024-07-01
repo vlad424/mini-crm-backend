@@ -16,7 +16,7 @@ export class StatisticService {
         incomes: true,
         products: true,
         counterAgentId: true
-      }
+      },
     })
 
     return all_orders 
