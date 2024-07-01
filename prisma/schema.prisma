@@ -9,7 +9,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = env("DATABASE_URL")
 }
 
 model admin {
@@ -51,16 +51,14 @@ model catalog {
 }
 
 model product {
-  id          Int        @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
   description String
   priceOne    String
   priceMany   String
   count       Int
-  catalog     catalog?   @relation(fields: [catalogId], references: [id])
+  catalog     catalog? @relation(fields: [catalogId], references: [id])
   catalogId   Int?
-  statistic   statistic? @relation(fields: [statisticId], references: [id])
-  statisticId Int?
 }
 
 model orderStatus {
@@ -80,14 +78,13 @@ model orderStatus {
 }
 
 model statistic {
-  id             Int       @id @default(autoincrement())
+  id             Int    @id @default(autoincrement())
   expenses       String
   incomes        String
   adminId        Int
   products       Int[]
   counterAgentId Int
   date           String
-  productItems   product[]
 }
 
 model Role {
